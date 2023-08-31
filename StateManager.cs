@@ -160,7 +160,8 @@ public static class StateManager
 
     static void Process_GameStart_Class()
     {
-        Console.WriteLine("1. 전사 / 2. 궁수 / 3. 마법사 / 4. 클레릭");
+        //Console.WriteLine("1. 전사 / 2. 궁수 / 3. 마법사 / 4. 클레릭");
+        Console.WriteLine("1. 전사 / 2. 궁수 / 3. 마법사");
         Console.WriteLine("원하시는 직업을 선택해주세요.");
         Console.Write(">> ");
         int input = CheckValidInput(1, Enum.GetValues(typeof(ClassType)).Length);

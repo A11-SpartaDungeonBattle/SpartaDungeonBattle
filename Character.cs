@@ -52,8 +52,8 @@ namespace SpartaDungeonBattle
         public int Gold { get; private set; }
         public int Exp { get; private set; }
         public Inventory Inventory { get; private set; }
-        public List<Skill> Skills { get; private set; }
-
+        //public List<Skill> Skills { get; private set; }
+        public Skill MainSkill { get; private set; }
         /// <summary>
         /// 필요에 따라 편집
         /// </summary>
@@ -79,7 +79,14 @@ namespace SpartaDungeonBattle
             };
         }
 
-        public void UseSkill(Skill skill) { }
+        public void UseSkill(Monster monster)
+        {
+//            MainSkill.SkillToMonster?.Invoke(monster, this);
+        }
+        public void UseSkill(List<Monster> monsters)
+        {
+//            MainSkill.SkillToMonsters?.Invoke(monsters, this);
+        }
 
         public void UseItem(Consumption consumption) { }
 
@@ -149,6 +156,7 @@ namespace SpartaDungeonBattle
                         HP = MaxHP;
                         MaxMP = 50;
                         MP = MaxMP;
+                        MainSkill = new Skill(SkillName.POWERSTRIKE);
                         break;
                     }
                 case ClassType.ARCHER:
@@ -159,6 +167,7 @@ namespace SpartaDungeonBattle
                         HP = MaxHP;
                         MaxMP = 60;
                         MP = MaxMP;
+                        MainSkill = new Skill(SkillName.MULTISHOT);
                         break;
                     }
                 case ClassType.MAGICIAN:
@@ -169,18 +178,19 @@ namespace SpartaDungeonBattle
                         HP = MaxHP;
                         MaxMP = 90;
                         MP = MaxMP;
+                        MainSkill = new Skill(SkillName.FIREBALL);
                         break;
                     }
-                case ClassType.CLERIC:
-                    {
-                        Attack = 8;
-                        Defense = 8;
-                        MaxHP = 80;
-                        HP = MaxHP;
-                        MaxMP = 70;
-                        MP = MaxMP;
-                        break;
-                    }
+                //case ClassType.CLERIC:
+                //    {
+                //        Attack = 8;
+                //        Defense = 8;
+                //        MaxHP = 80;
+                //        HP = MaxHP;
+                //        MaxMP = 70;
+                //        MP = MaxMP;
+                //        break;
+                //    }
             }
         }
         public bool NormalAttack(Monster monster)
@@ -197,7 +207,7 @@ namespace SpartaDungeonBattle
                                         (int)Math.Ceiling   (Attack * (1 + damageRangeMultiplier))
                                      );
             // 크리티컬 데미지 여부 판단 후 크리티컬 배율 반영
-            bool isCritAttack;
+            bool isCritAttack=false;
             if (random.Next(1, 101) <= critRate * 100)
             {
                 damage = (int)(damage * critMultiplier);
@@ -254,8 +264,8 @@ namespace SpartaDungeonBattle
                     return "궁수";
                 case ClassType.MAGICIAN:
                     return "마법사";
-                case ClassType.CLERIC:
-                    return "클레릭";
+                //case ClassType.CLERIC:
+                //    return "클레릭";
                 default:
                     return "";
             }
@@ -283,7 +293,7 @@ namespace SpartaDungeonBattle
         WARRIOR = 1,
         ARCHER,
         MAGICIAN,
-        CLERIC
+        //CLERIC
     }
 
     public enum AttackType

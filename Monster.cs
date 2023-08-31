@@ -56,8 +56,8 @@ namespace SpartaDungeonBattle
                                         (int)Math.Ceiling(Attack * (1 + damageRangeMultiplier))
                                      );
             // 크리티컬 데미지 여부 판단 후 크리티컬 배율 반영
-            bool isCritAttack;
-            if (random.Next(1, 101) > critRate * 100)
+            bool isCritAttack= false;
+            if (random.Next(1, 101) <= critRate * 100)
             {
                 damage = (int)(damage * critMultiplier);
                 isCritAttack = true;
